@@ -9,7 +9,6 @@ import {
 } from "react-icons/ai";
 import { IoIosArrowDown, IoIosArrowForward } from "react-icons/io";
 import { BiMenuAltLeft } from "react-icons/bi";
-import { CgProfile } from "react-icons/cg";
 import DropDown from "./DropDown";
 import Navbar from "./Navbar";
 import { useSelector } from "react-redux";
@@ -17,10 +16,13 @@ import { backend_url } from "../../server";
 import Cart from "../cart/Cart";
 import Wishlist from "../Wishlist/Wishlist";
 import { RxCross1 } from "react-icons/rx";
+import { useAccount, useConnect, useDisconnect } from "wagmi";
+import { MetaMaskConnector } from "wagmi/connectors/metaMask";
+import { polygonMumbai } from "wagmi/chains";
 
 const Header = ({ activeHeading }) => {
   const { isAuthenticated, user } = useSelector((state) => state.user);
-  const {allProducts} = useSelector((state) => state.products);
+  const { allProducts } = useSelector((state) => state.products);
   const [searchTerm, setSearchTerm] = useState("");
   const [searchData, setSearchData] = useState(null);
   const [active, setActive] = useState(false);
@@ -29,13 +31,23 @@ const Header = ({ activeHeading }) => {
   const [openWishlist, setOpenWishlist] = useState(false);
   const [open, setOpen] = useState(false);
 
+  const { address, isConnected } = useAccount();
+  const connector = new MetaMaskConnector();
+  const { connect } = useConnect({
+    connector: connector,
+    chainId: polygonMumbai.id,
+  });
+  const { disconnect } = useDisconnect();
+
   const handleSearchChange = (e) => {
     const term = e.target.value;
     setSearchTerm(term);
 
-    const filteredProducts = allProducts && allProducts.filter((product) =>
-      product.name.toLowerCase().includes(term.toLowerCase())
-    );
+    const filteredProducts =
+      allProducts &&
+      allProducts.filter((product) =>
+        product.name.toLowerCase().includes(term.toLowerCase())
+      );
     setSearchData(filteredProducts);
   };
 
@@ -46,6 +58,37 @@ const Header = ({ activeHeading }) => {
       setActive(false);
     }
   });
+
+  const walletButton = () => {
+    if (isConnected) {
+      return (
+        <div className="flex flex-row">
+          <div className="text-white bg-black p-2 rounded-md">
+            {address.slice(0, 20)}...
+          </div>
+          <div
+            className="text-white m-2"
+            onClick={() => {
+              disconnect();
+            }}
+          >
+            Logout
+          </div>
+        </div>
+      );
+    } else {
+      return (
+        <div
+          className="text-white hover:bg-black p-2 rounded-md"
+          onClick={() => {
+            connect();
+          }}
+        >
+          Connect Wallet
+        </div>
+      );
+    }
+  };
 
   return (
     <>
@@ -170,19 +213,7 @@ const Header = ({ activeHeading }) => {
 
             <div className={`${styles.noramlFlex}`}>
               <div className="relative cursor-pointer mr-[15px]">
-                {isAuthenticated ? (
-                  <Link to="/profile">
-                    <img
-                      src={`${backend_url}${user.avatar}`}
-                      className="w-[35px] h-[35px] rounded-full"
-                      alt=""
-                    />
-                  </Link>
-                ) : (
-                  <Link to="/login">
-                    <CgProfile size={30} color="rgb(255 255 255 / 83%)" />
-                  </Link>
-                )}
+                {walletButton()}
               </div>
             </div>
 

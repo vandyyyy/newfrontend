@@ -4,10 +4,10 @@ export const navItems = [
       title: "Home",
       url: "/",
     },
-    {
-      title: "Best Selling",
-      url: "/best-selling",
-    },
+    // {
+    //   title: "Best Selling",
+    //   url: "/best-selling",
+    // },
     {
       title: "Products",
       url: "/products",
@@ -16,10 +16,10 @@ export const navItems = [
       title: "Events",
       url: "/events",
     },
-    {
-      title: "FAQ",
-      url: "/faq",
-    },
+    // {
+    //   title: "FAQ",
+    //   url: "/faq",
+    // },
   ];
   
   // branding data

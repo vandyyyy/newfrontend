@@ -157,7 +157,7 @@ const ProductDetails = ({ data }) => {
               </div>
             </div>
           </div>
-          <ProductDetailsInfo data={data} products={products} />
+          {/* <ProductDetailsInfo data={data} products={products} /> */}
           <br />
           <br />
         </div>

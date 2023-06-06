@@ -14,10 +14,14 @@ const ShopCreatePage = () => {
     }
   }, [])
   return (
-    <div>
-        <ShopCreate />
-        <ShopCreate2/>
+    <div className="flex">
+    <div className="flex-1">
+      <ShopCreate />
     </div>
+    <div className="flex-1">
+      <ShopCreate2 />
+    </div>
+  </div>
   )
 }
 

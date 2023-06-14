@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import ShopCreate from "../components/Shop/ShopCreate";
+import ShopCreate2 from "../components/Shop/ShopCreate2";
 
 const ShopCreatePage = () => {
   const navigate = useNavigate();
@@ -13,7 +14,7 @@ const ShopCreatePage = () => {
     }
   }, []);
   return (
-<<<<<<< HEAD
+
     <div className="flex">
     <div className="flex-1">
       <ShopCreate />
@@ -24,12 +25,7 @@ const ShopCreatePage = () => {
   </div>
   )
 }
-=======
-    <div>
-      <ShopCreate />
-    </div>
-  );
-};
->>>>>>> refs/remotes/origin/new_branch
+   
+
 
 export default ShopCreatePage;

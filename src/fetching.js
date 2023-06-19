@@ -1,3 +1,5 @@
+const axios = require("axios");
+
 /* You will get an array of products in the format :
 {
         "productId": 14383,
@@ -39,51 +41,57 @@
 
 */
 
-export function fetchProducts() {
-  var requestOptions = {
-    method: "GET",
-    redirect: "follow",
-  };
-
-  fetch("http://localhost:3000/getVouchers", requestOptions)
-    .then((response) => response.text())
-    .then((result) => console.log(result))
-    .catch((error) => console.log("error", error));
+function fetchProducts(country) {
+  let url;
+  if (country) {
+    url = `https://blockchain-server-jjhjkj.vercel.app/getVouchers?country=${country}`;
+  } else {
+    url = `http://localhost:3000/getVouchers`;
+  }
+  axios
+    .get(url)
+    .then((res) => {
+      console.log(res.data);
+    })
+    .catch((e) => {
+      console.log(e);
+    });
 }
 
 /*
-OrderId - unique to every product
+productId - unique to every product
 email - The user logs in through his wallet address, so you have to ask for it on the order screen. It is neccessary.
 quantity- max limit mentined in each product's metadata
 po - a unique identifier that has to be generated from our side, has to be a number. If it matches any other, order gets declined.
 denomination - product metadata contains different denomination, whichever the user selects.
 */
-export function placeOrder(orderId, email, quantity, po, denomination) {
-  var requestOptions = {
-    method: "POST",
-    redirect: "follow",
-  };
-
-  fetch(
-    `http://localhost:3000/placeOrder?id=${orderId}&quantity=${quantity}&email=${email}&po=${po}&denomination=${denomination}`,
-    requestOptions
-  )
-    .then((response) => response.text())
-    .then((result) => console.log(result))
-    .catch((error) => console.log("error", error));
+function placeOrder(productId, email, quantity, po, denomination) {
+  axios
+    .post(
+      `https://blockchain-server-jjhjkj.vercel.app/placeOrder?id=${productId}&quantity=${quantity}&email=${email}&po=${po}&denomination=${denomination}`
+    )
+    .then((res) => {
+      console.log(res.data);
+    })
+    .catch((e) => {
+      console.log(e);
+    });
 }
 
 // OrderId - generated when the user places the order.
-export function getOrderDetails(orderId) {
-  var requestOptions = {
-    method: "GET",
-    redirect: "follow",
-  };
-
-  fetch(`http://localhost:3000/orderDetails?orderId=${orderId}`, requestOptions)
-    .then((response) => response.text())
-    .then((result) => console.log(result))
-    .catch((error) => console.log("error", error));
+function getOrderDetails(orderId) {
+  axios
+    .get(
+      `https://blockchain-server-jjhjkj.vercel.app/orderDetails?orderId=${orderId}`
+    )
+    .then((res) => {
+      console.log(res.data);
+    })
+    .catch((e) => {
+      console.log(e);
+    });
 }
 
-getOrderDetails(6459722);
+getOrderDetails(6459750);
+
+module.exports = { fetchProducts, placeOrder, getOrderDetails };

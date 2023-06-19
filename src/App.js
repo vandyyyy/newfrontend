@@ -1,6 +1,12 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
-import { BrowserRouter, Routes, Route, Navigate, useNavigate } from "react-router-dom";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Navigate,
+  useNavigate,
+} from "react-router-dom";
 import {
   LoginPage,
   SignupPage,
@@ -25,7 +31,7 @@ import {
   ShopCreateEvents,
   ShopAllEvents,
   ShopAllCoupouns,
-  ShopPreviewPage
+  ShopPreviewPage,
 } from "./routes/ShopRoutes";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -36,10 +42,9 @@ import { ShopHomePage } from "./ShopRoutes.js";
 import SellerProtectedRoute from "./routes/SellerProtectedRoute";
 import { getAllProducts } from "./redux/actions/product";
 import { getAllEvents } from "./redux/actions/event";
-import { useAccount, useConnect, useContractEvent } from 'wagmi'
-import { InjectedConnector } from 'wagmi/connectors/injected'
+import { useAccount, useConnect, useContractEvent } from "wagmi";
+import { InjectedConnector } from "wagmi/connectors/injected";
 import { abi } from "./components/abi/vendor";
-
 
 const App = () => {
   const { address, isConnected } = useAccount();
@@ -51,36 +56,34 @@ const App = () => {
     address: "0x5fDf5B9cc9369e0Ec9daA749eabe4fA151D7e8B2",
     abi: abi,
     eventName: "listedProduct",
-    listener(_vendor, _title, _key){
-      console.log(_vendor,_title, parseInt(_key));
-    }
+    listener(_vendor, _title, _key) {
+      console.log(_vendor, _title, parseInt(_key));
+    },
   });
-
-  
 
   useEffect(() => {
     Store.dispatch(loadUser());
     Store.dispatch(loadSeller());
     Store.dispatch(getAllProducts());
     Store.dispatch(getAllEvents());
-    if(isConnected){
+    if (isConnected) {
       Store.dispatch({
         type: "setWalletAddress",
-        payload: address
+        payload: address,
       });
-    }else if(!isConnected){
+    } else if (!isConnected) {
       Store.dispatch({
-        type:"setWalletAddress",
-        payload: undefined
-      })
+        type: "setWalletAddress",
+        payload: undefined,
+      });
     }
-  }, [isConnected,address]);
+  }, [isConnected, address]);
 
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/login" element={<LoginPage connectWallet={connect}/>} />
+        <Route path="/login" element={<LoginPage connectWallet={connect} />} />
         <Route path="/sign-up" element={<SignupPage />} />
         <Route
           path="/activation/:activation_token"
@@ -94,7 +97,7 @@ const App = () => {
         <Route path="/product/:name" element={<ProductDetailsPage />} />
         <Route path="/best-selling" element={<BestSellingPage />} />
         <Route path="/events" element={<EventsPage />} />
-       
+
         <Route
           path="/checkout"
           element={

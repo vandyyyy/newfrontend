@@ -25,7 +25,7 @@ const ShopCreatePage = () => {
   </div>
   )
 }
-   
+
 
 
 export default ShopCreatePage;

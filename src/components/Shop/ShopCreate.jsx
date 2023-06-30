@@ -1,10 +1,13 @@
 import { React, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { usePrepareContractWrite,useContractWrite } from "wagmi";
-import { abi } from "../abi/vendor";
-import firebase from "firebase/app";
-import "firebase/database";
-
+import { abi } from "../abi/vendor"
+ //import firebase from "firebase/app"
+// import "firebase/database"
+// import { getDatabase } from "firebase/database";
+// import { initializeApp } from "firebase/app";
+// import { getAnalytics } from "firebase/analytics";
+// import { getDatabase, ref, set } from "firebase/database";
 
 const ShopCreate = () => {
   const navigate = useNavigate();
@@ -26,28 +29,50 @@ const ShopCreate = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(selectedImage);
+    write?.();
+  };
+
+  const postData = async(e) => {
+    e.preventDefault();
+    console.log(selectedImage);
   
     // Create a reference to the Firebase database
-    const database = firebase.database();
+    // const database = firebase.database();
+    // const databaseRef = ref(database, "products");
   
     // Create a new "products" node in the database and generate a unique key for the new product
-    const productRef = database.ref("products").push();
+    // const productRef = database.ref("products").push();
   
     // Set the product data in the newly generated key
-    productRef.set({
-      title: title,
-      description: desc,
-      price: price,
-      stock: stock,
-    })
-      .then(() => {
-        console.log("Product data saved successfully.");
-        // Perform any necessary navigation or display success message
-      })
-      .catch((error) => {
-        console.log("Error saving product data: ", error);
-        // Display error message or handle the error
-      });
+    // productRef.set({
+    //   title: title,
+    //   description: desc,
+    //   price: price,
+    //   stock: stock,
+    // })
+    //   .then(() => {
+    //     console.log("Product data saved successfully.");
+    //     // Perform any necessary navigation or display success message
+    //   })
+    //   .catch((error) => {
+    //     console.log("Error saving product data: ", error);
+    //     // Display error message or handle the error
+    //   });
+    // set(databaseRef, {
+    //   title: title,
+    //   description: desc,
+    //   price: price,
+    //   stock: stock,
+    // })
+    // .then(() => {
+    //   console.log("Product data saved successfully.");
+    //   // Perform any necessary navigation or display success message
+    // })
+    // .catch((error) => {
+    //   console.log("Error saving product data: ", error);
+    //   // Display error message or handle the error
+    // });
+    
   };
   
 
@@ -65,12 +90,12 @@ const ShopCreate = () => {
     <div className="min-h-screen bg-black flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <h2 className="mt-6 text-center text-3xl font-extrabold text-white">
-         Update your product
+         Upload your product
         </h2>
       </div>
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-[35rem]">
         <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-          <form className="space-y-6" onSubmit={handleSubmit}>
+          <form className="space-y-6" method="POST" onSubmit={postData}>
 
           <div>
               <label
@@ -181,57 +206,6 @@ const ShopCreate = () => {
               </div>
             </div>
 
-           {/*  <div>
-             <label
-                htmlFor="email"
-                className="block text-sm font-medium text-gray-700"
-              >
-                Zip Code
-              </label>
-              <div className="mt-1">
-                <input
-                  type="number"
-                  name="zipcode"
-                  required
-                  value={zipCode}
-                  onChange={(e) => setZipCode(e.target.value)}
-                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                /> 
-              </div>
-            </div>*/}
-
-           {/* <div>
-              <label
-                htmlFor="password"
-                className="block text-sm font-medium text-gray-700"
-              >
-                Password
-              </label>
-              <div className="mt-1 relative">
-                <input
-                  type={visible ? "text" : "password"}
-                  name="password"
-                  autoComplete="current-password"
-                  required
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                />
-                {visible ? (
-                  <AiOutlineEye
-                    className="absolute right-2 top-2 cursor-pointer"
-                    size={25}
-                    onClick={() => setVisible(false)}
-                  />
-                ) : (
-                  <AiOutlineEyeInvisible
-                    className="absolute right-2 top-2 cursor-pointer"
-                    size={25}
-                    onClick={() => setVisible(true)}
-                  />
-                )}
-              </div>
-            </div>*/}
           
             {/* <div>
               <label
@@ -287,25 +261,36 @@ const ShopCreate = () => {
   );
 };
 // Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
+// import { initializeApp } from "firebase/app";
+// import { getAnalytics } from "firebase/analytics";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+// const firebaseConfig = {
+//   apiKey: "AIzaSyCCOJ8sCELKAuvilCH6Tip4A6W1usiDRms",
+//   authDomain: "omega-cider-326514.firebaseapp.com",
+//   projectId: "omega-cider-326514",
+//   storageBucket: "omega-cider-326514.appspot.com",
+//   messagingSenderId: "1037221820616",
+//   appId: "1:1037221820616:web:f6d4671c031dddfe3c0dfd",
+//   measurementId: "G-M4FMPVE6YL"
+// };
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyCCOJ8sCELKAuvilCH6Tip4A6W1usiDRms",
-  authDomain: "omega-cider-326514.firebaseapp.com",
-  projectId: "omega-cider-326514",
-  storageBucket: "omega-cider-326514.appspot.com",
-  messagingSenderId: "1037221820616",
-  appId: "1:1037221820616:web:f6d4671c031dddfe3c0dfd",
-  measurementId: "G-M4FMPVE6YL"
+  apiKey: "AIzaSyBLvV_xuyRgX5pI0Bgl32WEfwH9SHONtKE",
+  authDomain: "cybranex-65fc0.firebaseapp.com",
+  databaseURL: "https://cybranex-65fc0-default-rtdb.firebaseio.com",
+  projectId: "cybranex-65fc0",
+  storageBucket: "cybranex-65fc0.appspot.com",
+  messagingSenderId: "316557414028",
+  appId: "1:316557414028:web:8c97d8072b7498a09475a9",
+  measurementId: "G-14XFY7HJ5D"
 };
-
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+// const app = initializeApp(firebaseConfig);
+// const analytics = getAnalytics(app);
+// const database = getDatabase();
 
 export default ShopCreate;

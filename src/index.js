@@ -8,7 +8,7 @@ import { configureChains, WagmiConfig, createClient } from "wagmi"
 import {polygonMumbai} from "wagmi/chains";
 import {publicProvider } from "wagmi/providers/public";
 // import { createClient } from 'wagmi';
-const { chains,provider,webSocketProvider } = configureChains([polygonMumbai],[publicProvider()],);
+const { chains, provider,webSocketProvider } = configureChains([polygonMumbai],[publicProvider()],);
 
 const client = createClient({
   autoConnect: true,

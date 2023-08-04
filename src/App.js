@@ -95,7 +95,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/featured-products" component={FeaturedProduct} />
-        <Route path="/product/:productId" component={ProductDisplayPage} />
+        <Route path="/product/:id" element={<ProductDisplayPage />} />
         {/* <Route path="/featured-products" component={FeaturedProduct} /> */}
         <Route path="/login" element={<LoginPage connectWallet={connect} />} />
         <Route path="/sign-up" element={<SignupPage />} />

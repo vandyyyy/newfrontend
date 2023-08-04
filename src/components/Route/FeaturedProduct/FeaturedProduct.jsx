@@ -26,7 +26,6 @@
 //   return <div>Product List</div>;
 // };
 
- 
 //   return (
 //     <div>
 //       <div className={`${styles.section}`}>
@@ -57,7 +56,7 @@
 //     const fetchData = async () => {
 //       try {
 //         const response = await axios.get("https://stagingaccount.xoxoday.com/chef/v1/oauth/api");
-//         setAllProducts(response.data); 
+//         setAllProducts(response.data);
 //         setLoading(false);
 //       } catch (error) {
 //         setError(error);
@@ -103,7 +102,7 @@
 // import { getFirestore } from "firebase/firestore";
 // import { collection, getDocs } from "firebase/firestore";
 // // import Navbar from '../../Layout/Navbar'
-// const db = getFirestore(app); 
+// const db = getFirestore(app);
 // function FeaturedProduct() {
 //   const [info, setInfo] = useState([]);
 
@@ -192,14 +191,14 @@ import ProductCard from "../ProductCard/ProductCard";
 import { app } from "../../../firebaseconfig";
 import { getFirestore, collection, getDocs } from "firebase/firestore";
 import ProductDetailsCard from "../ProductDetailsCard/ProductDetailsCard";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import ProductDisplayPage from "./ProductDisplayPage";
 const db = getFirestore(app);
 function FeaturedProduct() {
   const [open, setOpen] = useState(false);
   const [info, setInfo] = useState([]);
   const navigate = useNavigate();
-  
+
   window.addEventListener("load", () => {
     fetchdata();
   });
@@ -220,19 +219,16 @@ function FeaturedProduct() {
           {info &&
             info.slice(2, 22).map((product, index) => (
               // Use onClick to handle navigation when the product card is clicked
-              <div
-                
-                onClick={() => navigate(`/product/${ProductDisplayPage}`)}
-              >
-                
-                <ProductCard data={product} />
+              <div>
+                <Link to={"product/gift"}>
+                  <ProductCard data={product} />
+                </Link>
               </div>
             ))}
         </div>
       </div>
       {open && <ProductDetailsCard setOpen={setOpen} data={info[0]} />}
     </div>
-    
   );
 }
 export default FeaturedProduct;

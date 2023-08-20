@@ -68,13 +68,21 @@ const ProductCard = ( data ) => {
                 {data.data.discount ? data.data.discount + " $" : null}
               </h4>
             </div>
-            <span className="font-[400] text-[17px] text-[#68d284]">
+            <span className="font-[400] text-[17px] text-[#9393b8]">
               {data.data.valueDenominations.length > 8 ? data.data.valueDenominations.slice(0, 8) + "..." : data.data.valueDenominations}
             </span>
+            {/* <p className="font-[400] text-[17px] text-[#68d284]">
+              {data.data.description.length > 8 ? data.data.description.slice(0, 8) + "..." : data.data.description}
+            </p> */}
           </div>
         </Link>
-
-
+        <p className="font-[400] text-[17px] text-[#9393b8]">
+              {data.data.description.length > 1000 ? data.data.description.slice(0, 1000) + "..." : data.data.description}
+            </p>
+            <h4 className="font-[4000] text-[32px] text-[#51b37e]">Product ID</h4>
+            <p className="font-[400] text-[17px] text-[#9393b8]">
+              {data.data.productId.length > 1000 ? data.data.productId.slice(0, 1000) + "..." : data.data.productId}
+            </p>
           {/* side options */}
           <div>
             {click ? (
